@@ -51,7 +51,7 @@ app.route('/login')
     }))
 
 app.route('/admin/login')
-.get((req, res) => res.render('Admin/login', {
+.get((req, res) => res.render('Admin/Login', {
     messageSignup: req.flash('successSingup'),
     message: req.flash('error')
 }))
