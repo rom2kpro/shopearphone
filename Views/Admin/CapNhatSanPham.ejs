@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Apple Store</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/Home/logo.png">
+    <!-- Custom Stylesheet -->
+    <link href="/css/admin.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="/plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- Daterange picker plugins css -->
+    <link href="/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <%- include("layouts/header") -%>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <!-- row -->
+
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <% if(messageAdd!=''){%>
+                            <div class="alert success" id="success-alert" style="text-align: center; width: 800px;margin-left: 150px;">
+                                <span class="closebtn">&times;</span>
+                                <strong><%= messageAdd%></strong>
+                            </div>
+                            <%}%>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-validation">
+                                            <form name="themsanpham" onsubmit="return validateUpdate(event)" action="/admin/dssanpham/update/<%=sanpham.id%>" method="post" enctype="multipart/form-data" >
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="tensanpham">Tên sản phẩm <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" value="<%= sanpham.name%>" id="tensanpham" name="tensanpham" placeholder="Nhập tên sản phẩm..">
+                                                        <span id="errorTensanpham" class="error-message"></span>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="giatien">Giá tiền <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" class="form-control" value="<%= parseInt(sanpham.price) %>" id="giatien" name="giatien" placeholder="Nhập giá sản phẩm..">
+                                                        <span id="errorGiatien" class="error-message"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="val-skill">Dòng sản phẩm <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <select class="form-control" id="dongsp" name="dongsp" value="<%= sanpham.productCategory.idCat%>" onchange="getCateChild(event)" >
+                                                            <option value="" disabled>Vui lòng chọn</option>
+                                                            <% loaisanpham.forEach(function(data){  %>
+                                                                <option value="<%= data.id %>"><%= data.name %></option>
+                                                            <% }) %>
+                                                        </select>
+                                                    <span id="errorDongsp" class="error-message"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="val-skill">Loại sản phẩm <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <select class="form-control" id="loaisp" name="loaisp" value="<%= sanpham.productCategory.idCatchild%>">
+                                                            <option value=""disabled>Vui lòng chọn</option>
+                                                            <% catechild[0].catechildren.forEach(function(data){  %>
+                                                                <option value="<%= data.id %>"><%= data.name %></option>
+                                                            <% }) %>
+                                                        </select>
+                                                    <span id="errorLoaisp" class="error-message"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="val-skill">Brand <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <select class="form-control" id="brand" name="brand" value="<%= sanpham.productCategory.idBrand%>">
+                                                            <option value="" disabled >Vui lòng chọn</option>
+                                                            <% brand.forEach(function(data){  %>
+                                                                <option value="<%= data.id %>"><%= data.name %></option>
+                                                            <% }) %>
+                                                        </select>
+                                                    <span id="errorBrand" class="error-message"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row d-flex justify-content-center">
+                                                    <img src="" alt="" id="output" >
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="hinhanh">Hình ảnh <span class="text-danger">*</span>
+                                                </label>
+                                                    <div class="col-lg-6">
+                                                        <div class="custom-file mb-3">
+                                                            <input type="file" class="custom-file-input" id="customFile" name="hinhanh" onchange="loadFile(event)">
+                                                            <label class="custom-file-label" for="customFile">Chọn ảnh</label>
+                                                            <span id="errorHinhanh" class="error-message"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="mota" >Mô tả <span class="text-danger">*</span>
+                                                </label>
+                                                    <div class="col-lg-6">
+                                                        <textarea class="form-control" name="mota" id="mota" rows="10" cols="150">
+                                                            <%= sanpham.mota%>
+                                                        </textarea>
+                                                        <span id="errorMota" class="error-message"></span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="thongsokythuat">Thông số kỹ thuật <span class="text-danger">*</span>
+                                            </label>
+                                                    <div class="col-lg-6">
+                                                        <textarea class="form-control" name="thongsokythuat" id="thongsokythuat" rows="10" cols="150">
+                                                            <%= sanpham.thongsokythuat%>
+                                                        </textarea>
+                                                        
+                                                </textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-lg-8 ml-auto">
+                                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <%- include("layouts/footer") -%>
+            </div>
+            <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+            <!--**********************************
+        Scripts
+    ***********************************-->
+            <script src="/js/admin/close-alert.js"></script>
+            <%- include("layouts/script") -%>
+            <script src="/js/admin/checkForm.js"></script>
+
+
+</body>
+
+</html>

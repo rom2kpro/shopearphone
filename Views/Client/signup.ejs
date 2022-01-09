@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('head_tag') %>
+</head>
+
+<body>
+    <%- include('header') %>
+        <div class="background">
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="content">
+                <form action="/signup" method="post" class="form-valide">
+                    <div class="container signup">
+                        <div class="row">
+                            <% if(message!='' ){%>
+                                <div class="fixed-top alert alert-danger alert-dismissible">
+                                    <!-- <button type="button" class="close" data-dismiss="alert">&times;</button> -->
+                                    <%= message %>
+                                </div>
+                                <% } %>
+                                    <div class=" col-md-6" style="padding-top: 25px;">
+                                        <h3>Đăng ký tài khoản</h3>
+                                        <div class="form-group">
+                                            <label for="hoten" class="col-form-label">Họ tên</label>
+                                            <div>
+                                                <input type="text" class="form-control" id="hoten" name="hoten"
+                                                    placeholder="Enter họ tên">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <div>
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    placeholder="Enter email">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">Mật khẩu</label>
+                                            <div>
+                                                <input type="password" name="password" class="form-control"
+                                                    id="password" placeholder="Password">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="repassword">Xác nhận mật khẩu</label>
+                                            <div>
+                                                <input type="password" class="form-control" id="repassword"
+                                                    name="repassword" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sideImg col-md-6">
+                                        <img src="/Images/Signup/apple-spring-loaded.jpeg" alt="">
+                                        <p>Đã có tài khoản ? <br><a href="/login"> đăng nhập ngay</a> </p>
+                                        <br><br><br><br><br><br>
+                                        <input type="submit" class="button" value="Đăng ký">
+                                    </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="Spacer">
+                <hr>
+                <br>
+            </div>
+        </div>
+        <%- include('footer') %>
+            <script>
+                AOS.init();
+                $(function () {
+                    $(window).on('scroll', function () {
+                        if ($(window).scrollTop() > 10) {
+                            $('.navbar').addClass('active');
+                            $('.searchBox').addClass('active');
+                        } else {
+                            $('.navbar').removeClass('active');
+                            $('.searchBox').removeClass('active');
+                        }
+                    });
+                });
+                window.setTimeout(function () {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 4500);
+            </script>
+            <script src="/plugins/validation/jquery.validate.min.js"></script>
+            <script src="/plugins/validation/jquery.validate-init.js"></script>
+</body>
+
+</html>

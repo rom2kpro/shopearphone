@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sound World</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/Home/logo.png">
+    <!-- Custom Stylesheet -->
+    <link href="/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="/Css/admin.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <%- include("layouts/header") -%>
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <% if(messageAdd!=''){%>
+                            <div class="alert success" id="success-alert" style="text-align: center; width: 800px;margin-left: 150px;">
+                                <span class="closebtn">&times;</span>
+                                <strong><%= messageAdd%></strong>
+                            </div>
+                            <%}%>
+                                <% if(messageFailAdd!=''){%>
+                                    <div class="alert danger" id="danger-alert" style="text-align: center; width: 800px;margin-left: 150px;">
+                                        <span class="closebtn">&times;</span>
+                                        <strong><%= messageFailAdd%></strong>
+                                    </div>
+                                    <%}%>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Thêm nhân viên</h4><br>
+                                                <div class="form-validation">
+                                                    <form class="form-valide" action="/admin/themnhanvien" method="post">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-4 col-form-label" for="hoten">Tên nhân viên <span class="text-danger">*</span>
+                                            </label>
+                                                            <div class="col-lg-6">
+                                                                <input type="text" class="form-control" id="hoten" name="hoten" placeholder="Nhập họ tên..">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-4 col-form-label" for="email">Email <span class="text-danger">*</span>
+                                            </label>
+                                                            <div class="col-lg-6">
+                                                                <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email..">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-4 col-form-label" for="password">Mật khẩu<span class="text-danger">*</span></label>
+                                                            <div class="col-lg-6">
+                                                                <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu..">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-4 col-form-label" for="repassword">Xác nhận mật khẩu<span class="text-danger">*</span></label>
+                                                            <div class="col-lg-6">
+                                                                <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Vui lòng nhập lại mật khẩu..">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-4 col-form-label" for="chucvu">Chọn chức vụ <span class="text-danger">*</span>
+                                            </label>
+                                                            <div class="col-lg-6">
+                                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" name="role" value="CatalogManager" > Nhân viên Quản lý sản phẩm</label>
+                                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" name="role" value="OrderManager" > Nhân viên Quản lý đơn hàng</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-8 ml-auto">
+                                                                <button type="submit" class="btn btn-primary">Thêm</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include("layouts/footer") -%>
+
+            </div>
+            <script src="/js/admin/close-alert.js"></script>
+            <%- include("layouts/script") -%>
+
+</body>
+
+</html>

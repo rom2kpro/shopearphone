@@ -1,0 +1,42 @@
+<script src="/ckeditor/ckeditor.js"></script>
+
+
+<script src="/plugins/common/common.min.js"></script>
+
+<script src="/js/admin/custom.min.js"></script>
+<script src="/js/admin/settings.js"></script>
+<script src="/js/admin/gleek.js"></script>
+<script src="/js/admin/styleSwitcher.js"></script>
+<script>
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    ClassicEditor
+    .create( document.querySelector( '#mota' ) )
+    .catch( error => {
+        console.error( error );
+    });
+    ClassicEditor
+    .create( document.querySelector( '#thongsokythuat' ) )
+    .catch( error => {
+        console.error( error );
+    });
+</script>
+
+
+<script src="/plugins/validation/jquery.validate.min.js"></script>
+<script src="/plugins/validation/jquery.validate-init.js"></script>
+<script src="/plugins/moment/moment.js"></script>
+<script src="/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script src="/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<script src="/plugins/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+<script src="/plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+<script src="/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+<script src="/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/js/admin/plugins-init/form-pickers-init.js"></script>
+<script src="/plugins/tables/js/jquery.dataTables.min.js"></script>
+<script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>

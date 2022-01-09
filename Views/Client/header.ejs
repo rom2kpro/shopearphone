@@ -1,0 +1,88 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
+<script src="/Js/search.js"></script>
+<header class="header">
+    <nav class="navbar navbar-expand-lg fixed-top py-3">
+        <div class="container">
+            <a href="/" class="navbar-brand font-weight-bold">
+                <img class="headimg" src="../Images/Home/logo.png"> SOUND WORLD
+            </a>
+
+
+            <form action="/search" method="get">
+                <div class="searchBox">
+
+                    <input class="searchInput" type="text" name="search" id="search" placeholder="Nhập tên sản phẩm.." required>&ensp;
+
+                    <button class="searchButton" type="submit" href="#">
+                        <i class="material-icons">
+                            search
+                        </i>
+                    </button>
+                </div>
+            </form>
+
+
+
+
+
+            <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars"></i></button>
+
+            <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="/" class="nav-link text-uppercase font-weight-bold">Home <span
+                                class="sr-only">(current)</span></a></li>
+                    <% categories.forEach(function(data){ %>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link text-uppercase font-weight-bold"><%= data.name %></a>
+                        <ul>
+                            <li>
+                                <a class="nav-link text-uppercase font-weight-bold" href="#"></a>
+                            </li>
+                            <% data.catechildren.forEach(function(data){ %>
+                                <li>
+                                    <a class="nav-link text-uppercase font-weight-bold" href="/products?id=<%= data.id %>">
+                                        <%= data.name %>
+                                    </a>
+                                </li>
+                                <% }) %>
+                        </ul>
+                    </li>
+                    <% }) %>
+                    <li class="nav-item dropdown">
+                        <a href="/cart" class="nav-link text-uppercase font-weight-bold">Giỏ hàng</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="/odermange" class="nav-link text-uppercase font-weight-bold">Đơn hàng</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <% if(user) { %>
+                            <a href="#" class="nav-link text-uppercase font-weight-bold">Chào! <%= user.user.hoten %></a>
+                            <% }else { %>
+                                <a href="#" class="nav-link text-uppercase font-weight-bold">Tài khoản</a>
+                                <% } %>
+
+                                    <ul>
+                                        <li>
+                                            <a class="nav-link text-uppercase font-weight-bold" href="#"></a>
+                                        </li>
+                                        <% if(user) { %>
+                                            <li><a class="nav-link text-uppercase font-weight-bold" id="profile" href="/profile">Thông tin cá nhân</a>
+                                            </li>
+                                            <li><a class="nav-link text-uppercase font-weight-bold" id="logOut" href="/logout">Đăng xuất</a>
+                                            </li>
+                                            <% }else { %>
+                                                <li><a class="nav-link text-uppercase font-weight-bold" href="/login">Đăng nhập</a>
+                                                </li>
+                                                <li><a class="nav-link text-uppercase font-weight-bold" href="/signup">Đăng ký</a>
+                                                </li>
+                                                <% } %>
+                                    </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('head_tag') %>
+</head>
+
+<body>
+    <%- include('header') %>
+
+        <div class="gradient">
+            <div class="spacer" style=" height: 100px;"></div>
+        <div class="container">
+            <% if(message!=''){%>
+                <div class="fixed-top alert alert-success alert-dismissible">
+                    <%= message %>
+                </div>
+            <% } %>
+            <h2 style="color: white; font-weight: 900;"> Chi tiết đơn hàng</h2>
+            <div class="oder row">
+                <table>
+                    <colgroup>
+                        <col span="1" style="width: 30%;">
+                        <col span="1" style="width: 10%;">
+                        <col span="1" style="width: 20%;">
+                        <col span="1" style="width: 30%;">
+                        <col span="1" style="width: 10%;">
+                        
+                     </colgroup>
+                    <tr>
+                        <th>ID Đơn hàng</th>
+                        <th>Số sản phẩm</th>
+                        <th>Tổng tiền</th>
+                        <th>Ngày đặt</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                        
+                      </tr>
+                      <% donHang.forEach(data => { %>
+                      <tr>
+                        <td><a href="/oder/<%= data.id%>"><%= data.id%></a></td>
+                        <td>
+                            <%= data.soluong %>
+                        </td>
+                        <td><%= data.totalmoney.toLocaleString('de-DE') %> <u>đ</u></td>
+                        <td><%= data.date.toLocaleString('en-JM')%></td>
+                        <td>Đang xét</td>
+                        <td><a href="/deleteoder/<%= data._id %>">Xóa</a></td>
+                      </tr>
+                      <% }) %>
+                </table>
+            </div>
+            
+        </div>
+        </div>
+        <%- include('footer') %>
+        <script>
+            AOS.init();
+            $(function () {
+                $(window).on('scroll', function () {
+                    if ($(window).scrollTop() > 10) {
+                        $('.navbar').addClass('active');
+                        $('.searchBox').addClass('active');
+                    } else {
+                        $('.navbar').removeClass('active');
+                        $('.searchBox').removeClass('active');
+                    }
+                });
+            });
+
+        </script>
+</body>
+
+</html>

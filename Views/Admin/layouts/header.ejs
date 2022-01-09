@@ -1,0 +1,110 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<div id="preloader">
+    <div class="loader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+        </svg>
+    </div>
+</div>
+<div id="main-wrapper">
+    <div class="nav-header">
+        <div class="brand-logo">
+            <a href="/admin">
+                <b class="logo-abbr"><img src="/images/admin/pngwing.com.png" alt=""> </b>
+                <span class="logo-compact"><img src="/images/admin/logo-compact.png" alt=""></span>
+                <span class="brand-title">
+                    <img src="/images/admin/text.png" alt="" width="180">
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="header">
+        <div class="header-content clearfix">
+
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="toggle-icon"><i class="icon-menu"></i></span>
+                </div>
+            </div>
+            <!-- <div class="header-left">
+                <div class="input-group icons">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                    </div>
+                    <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard">
+                    <div class="drop-down   d-md-none">
+                        <form action="#">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </form>
+                    </div>
+                </div>
+            </div> -->
+            <div class="header-right">
+                <ul class="clearfix">
+                    <li class="icons dropdown">
+                        <div>
+                            <span><u>Hi!</u> <%= user.user.hoten %>&ensp;</span>
+                        </div>
+                        <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                            <span class="activity active"></span>
+                            <img src="/images/member/form-user.png" height="40" width="40" alt="">
+                        </div>
+                        <div class="drop-down dropdown-profile   dropdown-menu">
+                            <div class="dropdown-content-body">
+                                <ul>
+                                    <li>
+                                        <a href="/admin/thongtincanhan"><i class="icon-user"></i> <span>Thông tin cá nhân</span></a>
+                                    </li>
+                                    <hr class="my-2">
+                                    <li><a href="../logout"><i class="icon-key"></i> <span>Đăng xuất</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="nk-sidebar">
+        <div class="nk-nav-scroll">
+            <ul class="metismenu" id="menu">
+                <% if(user.user.role == 'admin') { %> 
+                <li class="nav-label">Người dùng</li>
+                <li>
+                    <a href="/admin" aria-expanded="false">
+                        <i class="fas fa-user-friends"></i><span class="nav-text"> Danh sách nhân viên</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/khachhang" aria-expanded="false">
+                        <i class="fas fa-user-check"></i><span class="nav-text"> Danh sách khách hàng</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/themnhanvien" aria-expanded="false">
+                        <i class="fas fa-plus"></i><span class="nav-text"> Thêm nhân viên mới</span>
+                    </a>
+                </li>
+                <% } %>
+                <li class="nav-label">Sản phẩm</li>
+                <li>
+
+                    <a href="/admin/dssanpham" aria-expanded="false">
+                        <i class="fas fa-laptop"></i><span class="nav-text">Danh sách sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+
+                    <a href="/admin/dongsanpham" aria-expanded="false">
+                        <i class="fas fa-list"></i><span class="nav-text">Dòng sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/themsanpham" aria-expanded="false">
+                        <i class="fas fa-plus"></i><span class="nav-text">Thêm sản phẩm</span>
+                    </a>
+                </li>
+                    <li class="nav-label">Đơn hàng</li>
+            </ul>
+        </div>
+    </div>

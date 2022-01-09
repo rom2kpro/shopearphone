@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('head_tag') %>
+</head>
+
+<body>
+    <%- include('header') %>
+
+        <div class="gradient">
+
+            <div class="container " style="padding-top: 150px;">
+                <div class="row productInf">
+                    <% if(message!=''){%>
+                        <div class="fixed-top alert alert-success alert-dismissible">
+                            <%= message %>
+                        </div>
+                        <% } %>
+                            <div class="detailImg col-md-4">
+                                <img src="https://shopearphone.blob.core.windows.net/file/<%= sanPham.image %>" alt="">
+                            </div>
+                            <div class="col-md-6" style="color: white;">
+                                <h3 style="font-weight: 900;">
+                                    <%= sanPham.name %>
+                                </h3>
+
+                                <h1 style="color: rgb(255, 109, 109);">
+                                    <%= sanPham.price.toLocaleString('de-DE') %> VNĐ</h1>
+                                <h5> Sản phẩm chính hãng Việt Nam mới 100% nguyên seal <br> Giá đã bao gồm VAT<br> Bảo hành 12 tháng chính hãng<br> Giảm giá 10% khi mua phụ kiện kèm theo</h5>
+                                <a href="/addcart/<%=sanPham.id%>">
+                                    <div class="button"><span>Thêm giỏ hàng</span></div>
+                                </a>
+
+                            </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-10 prodSpec">
+                        <h2>
+                            Mô tả sản phẩm
+                        </h2>
+                        <%- sanPham.thongsokythuat %>
+
+                            <%- sanPham.mota %>
+
+                    </div>
+                    <div class="col-md-2 moreProd">
+                        <h2>Sản phẩm liên quan</h2>
+                        <% sanPhamLienQuan.forEach(function(data){  %>
+                            <a href="/detailProd?id=<%= data.id %>">
+                                <div class="items">
+                                    <img class="prodImg" src="/upload/<%= data.hinhanh %>">
+                                    <p class="title double-line">
+                                        <%= data.tensanpham %>
+                                    </p>
+                                    <p class="price">
+                                        <%= data.giatien.toLocaleString('de-DE') %> <u>đ</u></p>
+                                </div>
+                            </a>
+                            <% }) %>
+
+
+                                <a href="/detailProd">
+                                    <div class="items">
+                                        <img class="prodImg" src="/Images/Product/WH1000XM4.jpg">
+                                        <p class="title">Tai nghe Sony WH-1000XM4</p>
+                                        <p class="price">6.600.000 VNĐ</p>
+                                    </div>
+                                </a>
+
+                    </div>
+                </div>
+
+
+                <div class="row comment_block" style="margin-top: 75px;">
+                    <div class="col-md-10">
+                        <h1>Đánh giá sản phẩm</h1>
+                        <div id="add-comment"></div>
+                        <% comments.forEach(data => { %>
+                            <div class="row commenter">
+                                <div class="col-md-2 commenter_avatar">
+                                    <img src="/Images/Member/form-user.png" alt="">
+                                    <h5>
+                                        <%= data.idUserNavigation.hoten %>
+                                    </h5>
+                                </div>
+                                <div class="col-md-10">
+                                    <p>
+                                        <%- data.comment1 %>
+                                            <%if(user){if(data.idUser == user.user.id){%><a href="/deletecomment/<%=data.id%>" style="float: right;">Xóa</a>
+                                                <%}}%>
+                                    </p>
+                                    <p>
+                                        <%= data.time.toLocaleString('en-JM') %>
+                                    </p>
+                                </div>
+                            </div>
+                            <%});%>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 comment">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="/Images/Member/form-user.png" width="70" class="rounded-circle mt-2">
+                                </div>
+                                <div class="col-10">
+                                    <div class="comment-box ml-2">
+                                        <% if(user) { %>
+                                            <h4>Phản hồi</h4>
+                                            <form id="post-comment">
+                                                <div class="comment-area">
+                                                    <textarea id="comment-content" class="form-control" placeholder="Đánh giá của bạn" rows="4"></textarea>
+                                                </div>
+                                                <div class="comment-btns mt-2">
+                                                    <div class="row">
+                                                        <div> <button type="submit" class="btn btn-success send btn-sm">Send <i
+                                                            class="fa fa-long-arrow-right ml-1"></i></button> </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                                
+                                            <%}else{%>
+                                                <div class="comment-btns mt-2">
+                                                    <h4>Vui lòng đăng nhập để nhận xét sản phẩm!</h4>
+                                                    <div class="row">
+                                                        <div> <button onclick="window.location.href='/login'" class="btn btn-success send btn-sm">Đăng nhập <i
+                                                            class="fa fa-long-arrow-right ml-1"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <%- include('footer') %>
+            <script>
+                AOS.init();
+                $(function() {
+                    $(window).on('scroll', function() {
+                        if ($(window).scrollTop() > 10) {
+                            $('.navbar').addClass('active');
+                            $('.searchBox').addClass('active');
+                        } else {
+                            $('.navbar').removeClass('active');
+                            $('.searchBox').removeClass('active');
+                        }
+                    });
+                });
+
+                $('#post-comment').submit(function(e) {
+                    e.preventDefault();
+                    var idsanpham = (new URLSearchParams(window.location.search)).get('id');
+                    var noidung = $("#comment-content").val().replace(/\r?\n/g, '<br/>');
+                    console.log(idsanpham)
+                    $.ajax({
+                        url: "/post-comment",
+                        data: {
+                            noidung,
+                            idsanpham
+                        },
+                        method: "POST",
+                        success: function(data) {
+                            console.log(data)
+                            $('#add-comment')
+                                .append(`<div class="row commenter">
+                                    <div class="col-md-2 commenter_avatar">
+                                        <img src="/Images/Member/form-user.png" alt="">
+                                        <h5>${data.user.user.hoten}</h5>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p>${data.response.comment1} <a href="/deletecomment/${data.response.id}" style="float: right;">Xóa</a></p>
+                                        <p>${new Date(data.response.time).toLocaleString('en-JM')}</p>
+                                    </div>
+                                </div>`)
+                            $("#comment-content").val('')
+                        }
+                    })
+                })
+            </script>
+</body>
+
+</html>

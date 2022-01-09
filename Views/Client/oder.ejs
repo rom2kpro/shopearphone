@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('head_tag') %>
+</head>
+
+<body>
+    <%- include('header') %>
+
+        <div class="gradient">
+            <div class="spacer" style=" height: 100px;"></div>
+        <div class="container">
+            <h2 style="color: white; font-weight: 900;"> Chi tiết đơn hàng</h2>
+            <div class="oder row">
+                <table>
+                    <colgroup>
+                        <col span="1" style="width: 60%;">
+                        <col span="1" style="width: 10%;">
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 15%;">
+                        
+                     </colgroup>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        
+                      </tr>
+                      <% chiTietDonHang.invoiceDetails.forEach(data => {%>
+                      <tr>
+                        <td><a href="/detailProd?id=<%=data.product.id %>"><%=data.product.name %></a></td>
+                        <td><%= data.soluong %></td>
+                        <td><%=data.product.price.toLocaleString('de-DE') %> <u>đ</u></td>
+                        <td><%=(data.product.price *  data.soluong).toLocaleString('de-DE') %> <u>đ</u></td>
+                      </tr>
+                      <% });%>
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td><b><u>Tổng cộng:</u></b></td>
+                          <td><b><%=chiTietDonHang.totalmoney.toLocaleString('de-DE') %> <u>đ</u></b></td>
+                      </tr>
+                </table>
+            </div>
+            
+        </div>
+        </div>
+        <%- include('footer') %>
+            <script>
+                AOS.init();
+                $(function () {
+                    $(window).on('scroll', function () {
+                        if ($(window).scrollTop() > 10) {
+                            $('.navbar').addClass('active');
+                            $('.searchBox').addClass('active');
+                        } else {
+                            $('.navbar').removeClass('active');
+                            $('.searchBox').removeClass('active');
+                        }
+                    });
+                });
+
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+{
+    "name": "SOUNDWORLD",
+    "version": "1.0.0",
+    "description": "Project môn Công Nghệ Phần Mềm",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@gitlab.com/vandalskoc/applestore.git"
+    },
+    "author": "Nguyễn Việt Trung - Huỳnh Long",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://gitlab.com/vandalskoc/applestore/issues"
+    },
+    "homepage": "https://gitlab.com/vandalskoc/applestore#readme",
+    "dependencies": {
+        "animate.css": "^4.1.1",
+        "aos": "^2.3.4",
+        "axios": "^0.24.0",
+        "bcryptjs": "^2.4.3",
+        "connect-flash": "^0.1.1",
+        "cookie-parser": "^1.4.5",
+        "dotenv": "^10.0.0",
+        "ejs": "^3.1.6",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "form-data": "^4.0.0",
+        "mongoose": "^5.12.5",
+        "multer": "^1.4.4",
+        "nodemon": "^2.0.7",
+        "passport": "^0.4.1",
+        "passport-google-oauth20": "^2.0.0",
+        "passport-local": "^1.0.0",
+        "path": "^0.12.7",
+        "v": "^0.3.0"
+    }
+}

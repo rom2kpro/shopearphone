@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sound World</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/Home/logo.png">
+    <!-- Custom Stylesheet -->
+    <link href="/css/admin.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="/plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- Daterange picker plugins css -->
+    <link href="/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <style>
+        .empty {
+            color: rgb(190, 187, 187);
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("layouts/header") -%>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+
+            <!-- row -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <% if(messageUpdate!=''){%>
+                        <div class="alert success" id="success-alert" style="text-align: center; width: 800px;margin-left: 150px;">
+                            <span class="closebtn">&times;</span>
+                            <strong><%= messageUpdate%></strong>
+                        </div>
+                        <%}%>
+                            <div class="col-lg-4 col-xl-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="media align-items-center mb-4">
+                                            <img class="mr-3" src="/images/Member/form-user.png" width="90" height="90" alt="" style="border-radius: 50%;">
+                                            <div class="media-body">
+                                                <h4 class="mb-0">
+                                                    <%= user.user.hoten %>
+                                                </h4>
+                                                <p class="text-muted mb-0">
+                                                    <% if(user.user.role == 'admin'){%>Admin
+                                                        <% } else {%>Nhân viên
+                                                            <%}%>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- <h4><u>Thông tin cá nhân</u></h4>
+                                <br> -->
+                                        <ul class="card-profile__info">
+                                            <li class="mb-1"><strong class="text-dark mr-4">Họ Tên&emsp;</strong> <span><%= user.user.hoten %></span></li>
+                                            <li class="mb-1"><strong class="text-dark mr-4">Chức vụ&nbsp;</strong> <span><% if(user.user.role == 'admin'){%>Admin
+                                                <% } else {%>Nhân viên
+                                                        <%}%> </span></li>
+                                            <li class="mb-1"><strong class="text-dark mr-4">SĐT&emsp;&emsp; </strong> <span><% if(thongtin){ %><%= thongtin.phone %><%}else{%><i class="empty">{Chưa cập nhật}</i><%}%></span></li>
+                                            <li class="mb-1"><strong class="text-dark mr-4">Email&emsp;&ensp;</strong> <span><%= user.user.email %></span></li>
+                                            <li class="mb-1"><strong class="text-dark mr-4">Giới tính&ensp;</strong><span><% if(thongtin){ %><%= thongtin.gender %><%}else{%><i class="empty">{Chưa cập nhật}</i><%}%></span></li>
+                                            <li class="mb-1"><strong class="text-dark mr-4">Ngày sinh</strong><span><% if(thongtin){ %><%= thongtin.birthday %><%}else{%><i class="empty">{Chưa cập nhật}</i><%}%></span></li>
+                                            <li class="mb-1"><strong class="text-dark mr-4">Địa chỉ&emsp;</strong> <span><% if(thongtin){ %><%= thongtin.address %><%}else{%><i class="empty">{Chưa cập nhật}</i><%}%></span></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xl-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-validation">
+                                            <form class="form-valide" action="/admin/thongtincanhan/ <% if(thongtin){%><%=user.user.id%><%}%>" method="post">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="chucvu">Chức vụ
+                                            </label>
+                                                    <div class="col-lg-6">
+                                                        <input value="<% if(user.user.role == 'admin'){%>Admin
+                                                            <% } else {%>Nhân viên
+                                                                    <%}%>" type="text" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="email">Email
+                                            </label>
+                                                    <div class="col-lg-6">
+                                                        <input value="<%= user.user.email %>" type="text" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="hoten">Họ tên <span class="text-danger">*</span>
+                                            </label>
+                                                    <div class="col-lg-6">
+                                                        <input value="<%= user.user.hoten %>" type="text" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="sdt">Số điện thoại <span class="text-danger">*</span>
+                                            </label>
+                                                    <div class="col-lg-6">
+                                                        <input value="<% if(thongtin){ %><%= thongtin.phone %><%}else{%><%}%>" type="text" class="form-control" id="sdt" name="sdt" placeholder="Vui lòng nhập số điện thoại..">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="gioitinh">Giới tính <span class="text-danger">*</span>
+                                            </label>
+                                                    <div class="col-lg-6">
+                                                        <label class="radio-inline mr-3">
+                                                    <input type="radio" name="gioitinh" value="Nam" <%if(thongtin){%><%if(thongtin.gender=='Nam'){%>checked<%}%><%}%>> Nam</label>
+                                                        <label class="radio-inline mr-3">
+                                                    <input type="radio" name="gioitinh" value="Nữ" <%if(thongtin){%><%if(thongtin.gender=='Nữ'){%>checked<%}%><%}%>> Nữ</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="namsinh">Ngày sinh <span class="text-danger">*</span>
+                                            </label>
+                                                    <div class="col-lg-6">
+                                                        <input value="<% if(thongtin){ %><%= thongtin.birthday %><%}else{%><%}%>" type="text" class="form-control" id="mdate" name="namsinh" placeholder="Vui lòng chọn ngày sinh">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="diachi">Địa chỉ <span class="text-danger">*</span>
+                                            </label>
+                                                    <div class="col-lg-6">
+                                                        <input value="<% if(thongtin){ %><%= thongtin.address %><%}else{%><%}%>" type="text" class="form-control" id="diachi" name="diachi" placeholder="Vui lòng nhập địa chỉ">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-lg-8 ml-auto">
+                                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <%- include("layouts/footer") -%>
+            </div>
+            <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+            <!--**********************************
+        Scripts
+    ***********************************-->
+            <script src="/js/admin/close-alert.js"></script>
+            <%- include("layouts/script") -%>
+
+</body>
+
+</html>

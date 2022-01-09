@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
+    <title>Document</title>
+</head>
+<body>
+    <form action="/search" >
+        <input type="text" id="search" name="search" placeholder="Nhập tên sản phẩm">
+        <input type="submit" value="Tìm">
+    </form>
+    <br><br>
+    Số kết quả: <%= sanPhamResult.length %>
+    <table border="1">
+        <tr>
+            <td>Tên sản phẩm</td>
+            <td>Giá</td>
+        </tr>
+        <% sanPhamResult.forEach(function(data){  %>
+        <tr>
+            <td><a href="/detailProd?id=<%= data._id %>"><%= data.tensanpham %></a></td>
+            <td><%= data.giatien.toLocaleString('de-DE') %></td>
+        </tr>
+        <% }) %>
+    </table>
+</body>
+<!-- <script>
+    $(document).ready(function(){
+        $('#search').keyup(function(){  
+            var data = '' 
+            data = $(this).val();
+            search(data);
+        });
+        function search(data) {
+            var dataAuto = []
+            $.ajax({
+                type: 'GET',
+                url: '/autocomplete',
+                data: {data},
+                cache: false,
+                success: function(result) {
+                    result.forEach(function(data){
+                        dataAuto.push(data)
+                    })
+                    $(function() {
+                        $("#search").autocomplete({
+                            source: function (req, res) {
+                                        res($.map(dataAuto, function (value, key) {
+                                            return {
+                                                label: value.tensanpham,
+                                                value: value._id
+                                            }
+                                        }));
+                                    },
+                            select: function( event, ui ) { 
+                                window.location.href = 'detailProd?id=' + ui.item.value;
+                                return false;
+                            },
+                            focus: function(event, ui) {
+                                $('#search').val('');
+                                return false;
+                            },
+                        });
+                    });
+                }
+            });
+        }
+    });
+</script> -->
+</html>

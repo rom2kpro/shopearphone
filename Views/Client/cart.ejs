@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('head_tag') %>
+    <style>
+        .quantity {
+            padding-top: 30px;
+        }
+            .quantity input {
+            -webkit-appearance: none;
+            border: none;
+            text-align: center;
+            width: 32px;
+            font-size: 16px;
+            color: #43484D;
+            font-weight: 300;
+        }
+        button[class*=btn] {
+            width: 30px;
+            height: 30px;
+            background-color: #E1E8EE;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+        button:disabled {
+            cursor: context-menu;
+        }
+        button:focus,
+        input:focus {
+            outline:0;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            var tongtien = parseInt($('#tongtien').val())
+            $('.minus-btn').on('click', function(e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $input = $this.closest('span').find('input');
+                var value = parseInt($input.val());
+                var check = parseInt($input.val());
+                var idsanpham = $this.closest('span').find('p').text();
+
+                if (value > 1) {
+                    value = value - 1;
+                } else {
+                    value = 1;
+                }
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/cartnumber',
+                    data: {id ,idsanpham, soluong: value, tongtien, op: '-', check},
+                    cache: false,
+                    success: function(data) {
+                        console.log(data)
+                        // var index = $this.closest("tr").index()
+                        // //Ẩn để tính toán
+                        // $('#giatien'+ index).html(data.giaTien);
+                        // //Hiển thị lên màn hình
+                        // $('#giatienhien'+ index).html(data.giaTien.toLocaleString('de-DE') + ' <u>đ</u>');
+
+                        // tongtien = data.tongtien
+
+                        // //Ẩn để tính toán
+                        // $('#tongtien').val(tongtien)
+                        // //Hiển thị lên màn hình
+                        // $('#tongtienhien').html(tongtien.toLocaleString('de-DE') + ' <b><u>đ</u></b>')
+                    }
+                }); 
+                
+                $input.val(value);
+            });
+           
+            $('.plus-btn').on('click', function(e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $input = $this.closest('span').find('input');
+                var value = parseInt($input.val());
+                var id = $this.closest('span').find('#id').text();
+                var productid = $this.closest('span').find('#productid').text();
+                var check = parseInt($input.val());
+                check +=1
+                if (value < 100) {
+                    value = value + 1;
+                } else {
+                    value = 100;
+                }
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/cartnumber',
+                    data: {id, productid, soluong: value, tongtien, op: '+', check},
+                    cache: false,
+                    success: function(data) {
+                        console.log(data)
+                        var index = $this.closest("tr").index()
+                        //Ẩn để tính toán
+                        $('#giatien'+ index).html(data.giaTien);
+                        //Hiển thị lên màn hình
+                        $('#giatienhien'+ index).html(data.giaTien.toLocaleString('de-DE') + ' <u>đ</u>');
+
+                        tongtien = data.tongtien
+
+                        //Ẩn để tính toán
+                        $('#tongtien').val(tongtien)
+                        //Hiển thị lên màn hình
+                        $('#tongtienhien').html(tongtien.toLocaleString('de-DE') + ' <b><u>đ</u></b>')
+                    }
+                }); 
+                
+                $input.val(value);
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <%- include('header') %>
+        <div class="gradient">
+
+            <div class="spacer" style=" height: 100px;"></div>
+            <div class="container">
+                <form action="/cart" method="post">
+                    <div class="row">
+                        <% if(message!=''){%>
+                            <div class="fixed-top alert alert-success alert-dismissible">
+                                <%= message %>
+                            </div>
+                        <% } %>
+                        <% if(messageError!=''){%>
+                            <div class="fixed-top alert alert-danger alert-dismissible">
+                                <%= messageError %>
+                            </div>
+                        <% } %>
+                            <div class="cart_items col-md-8">
+                                <h2 style="font-weight: 900;">Giỏ hàng</h2>
+                                <table>
+                                    <tr>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá tiền</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                    <%  var i = 1 
+                                        var tongtien = 0
+                                        var soluong = 0
+                                    %>
+                                    <% gioHang.forEach(data => { %>
+                                    <tr>
+                                        <td style="max-width:280px"><p class="single-line"><a href="/detailProd?id=<%= data.productId%>"><%= data.product.name %></a></p></td>
+                                        <input name="productid" type="hidden" value="<%= data.productId %>">
+                                        <input name="idcart" type="hidden" value="<%= data.id %>">
+                                        <td>
+                                            <span class="quantity">
+                                                <button class="minus-btn" >-</button>
+                                                <input type="text" name="soluong" value="<%= data.soluong %>" readonly>
+                                                <p id="id" style="display: none;"><%= data.id %></p>
+                                                <p id="productid" style="display: none;"><%= data.productId %></p>
+                                                <button  class="plus-btn" >+</button> 
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <p id="giatien<%=i%>" style="display: none;"><%= data.product.price * data.soluong %></p>
+                                            <p id="giatienhien<%=i%>"><%= (data.product.price * data.soluong).toLocaleString('de-DE') %> <u>đ</u></p>
+                                        </td>
+                                        <td>
+                                            <p><a href="/deletecart/<%= data.id %>">Xóa</a></p>
+                                            
+                                        </td>
+                                    </tr>
+                                    <% tongtien +=  data.product.price * data.soluong %>
+                                    <% soluong += data.soluong%>
+                                    <%i++});%>
+                                </table>
+                            </div>
+                        
+                        <div class="col-md-3">
+                            <div class="price_box">
+                                <h2 style="font-weight: 900;">Thành tiền</h2>
+                                <!-- <div class="temp_price">
+                                    <p style="float: left;">Khuyến mãi:</p>
+                                    <p style="float: right;">1.000.000 VNĐ</p><br>
+                                    
+                                    <p style="float: left;">Tạm tính:</p>
+                                    <p style="float: right;">28.980.000 VNĐ</p><br>
+                                </div> -->
+                                <div class="final_price">
+                                    <hr style="width:100%;">
+                                    <p style="float: left;">Tổng tiền</p>
+                                    <p id="tongtienhien" style="float: right; color: black;"><%= tongtien.toLocaleString('de-DE') %> <b><u>đ</u></b></p>
+                                    <input id="tongtien" name="thanhtien" style="float: right; border: none;" type="hidden" value="<%= tongtien %>" readonly >
+                                </div>
+                                
+                            </div>
+                            <!-- <div class="voucher">
+                                <h5 style="font-weight: 900;">Khuyến mãi</h5>
+                                <input type="text">
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="purchase row">
+                        <div class="col-md-9">
+                            <p>Khi nhấn đặt hàng bạn đã cam kết đồng ý với chính sách bán hàn và bảo hành sản phẩm của chúng tôi</p>
+                            <a href="#">tìm hiểu thêm về chính sách</a>
+                        </div>
+                        <div class="btn_purchase col-md-3"> 
+                            <div class="button"><button><span>Đặt hàng</span></buton></div>
+                            
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <%- include('footer') %>
+            <script>
+                AOS.init();
+                $(function () {
+                    $(window).on('scroll', function () {
+                        if ($(window).scrollTop() > 10) {
+                            $('.navbar').addClass('active');
+                            $('.searchBox').addClass('active');
+                        } else {
+                            $('.navbar').removeClass('active');
+                            $('.searchBox').removeClass('active');
+                        }
+                    });
+                });
+
+            </script>
+</body>
+
+</html>

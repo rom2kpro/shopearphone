@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('head_tag') %>
+</head>
+
+<body>
+    <%- include('header') %>
+
+        <div class="background">
+            <div class="content">
+                <div id="Spacer">
+
+                </div>
+
+                <div class="container profile">
+                    <div class="row">
+                        <% if(message!=''){%>
+                            <div class="fixed-top alert alert-success alert-dismissible">
+                                <!-- <button type="button" class="close" data-dismiss="alert">&times;</button> -->
+                                <%= message %>
+                            </div>
+                            <% } %>
+                                <div class=" avatar col-md-4">
+
+                                    <img src="/Images/Member/form-user.png" alt="">
+                                    <!-- <div class="overlay">
+                                        <button class="text">Đổi ảnh đại diện</button>
+                                    </div> -->
+                                    <h4>
+                                        <%= user.user.hoten %>
+                                    </h4>
+                                </div>
+                                <div class=" infor col-md-8">
+
+                                    <form class="form-valide" action="/thongtinkhachhang" method="post">
+                                        <div class="form-group row">
+                                            <div class="col-lg-6">
+                                                <input type="text" name="hoten" value="<%= user.user.hoten %>" id="hoten" placeholder="Họ Tên ?" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-6">
+                                                <input type="number" name="sdt" value="<% if(thanhvien){ %><%= thanhvien.phone %><%}else{%><%}%>" id="sdt" placeholder="Số điện thoại">
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" id="gioitinh" for="gioitinh">Giới tính <span class="text-danger">*</span>
+                                    </label>
+                                            <div class="col-lg-6">
+                                                <label class="radio-inline mr-3">
+                                            <input type="radio" name="gioitinh" id="nam" value="Nam" <%if(thanhvien){%><%if(thanhvien.gender=='Nam'){%>checked<%}%><%}%>> Nam</label>
+                                                <label class="radio-inline mr-3">
+                                            <input type="radio" name="gioitinh" id="nu" value="Nữ" <%if(thanhvien){%><%if(thanhvien.gender=='Nam'=='Nữ'){%>checked<%}%><%}%>> Nữ</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-6">
+                                                <input type="text" name="diachi" value="<% if(thanhvien){ %><%= thanhvien.address %><%}else{%><%}%>" id="diachi" placeholder="Địa chỉ">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-6">
+                                                <input type="date" name="namsinh" value="<% if(thanhvien){ %><%= thanhvien.birthday %><%}else{%><%}%>" id="namsinh" placeholder="Năm Sinh">
+                                            </div>
+                                        </div>
+
+                                        <input type="submit" class="button" value="Cật nhập"></input>
+
+                                </div>
+                                </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="Spacer">
+
+        </div>
+        </div>
+        <%- include('footer') %>
+            <script>
+                AOS.init();
+                $(function() {
+                    $(window).on('scroll', function() {
+                        if ($(window).scrollTop() > 10) {
+                            $('.navbar').addClass('active');
+                            $('.searchBox').addClass('active');
+                        } else {
+                            $('.navbar').removeClass('active');
+                            $('.searchBox').removeClass('active');
+                        }
+                    });
+                });
+            </script>
+            <script src="/plugins/validation/jquery.validate.min.js"></script>
+            <script src="/plugins/validation/jquery.validate-init.js"></script>
+</body>
+
+</html>

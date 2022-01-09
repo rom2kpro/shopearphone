@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('head_tag') %>
+</head>
+<style>
+
+</style>
+<%- include ('header') %>
+    <div class="gradient">
+        <div class="spacer" style=" height: 100px;"></div>
+        <div class="content">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-20 ">
+                        <div class="row">
+                            <% sanPham.forEach(function(data){  %>
+                                <a href="/detailProd?id=<%=data.id %>">
+                                    <div class="items">
+                                        <img class="prodImg" src="https://shopearphone.blob.core.windows.net/file/<%=data.image %>">
+                                        <p class="title double-line">
+                                            <%= data.name %>
+                                        </p>
+                                        <!-- <p class="desc">Core i5 Touchbar 256gb New</p> -->
+                                        <p class="price">
+                                            <%= data.price.toLocaleString('de-DE') %> <u>đ</u></p>
+                                    </div>
+                                </a>
+                                <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include ('footer') %>
+
+        <body>
+            <script>
+                // AOS.init();
+                // $(function() {
+                //     $(window).on('scroll', function() {
+                //         if ($(window).scrollTop() > 10) {
+                //             $('.navbar').addClass('active');
+                //             $('.searchBox').addClass('active');
+                //         } else {
+                //             $('.navbar').removeClass('active');
+                //             $('.searchBox').removeClass('active');
+                //         }
+                //     });
+                // });
+                //          <div class="sidemenu col-2">
+                //     <% if(locals.dongSp) { %>
+                //         <h2><%= loaiSp.tendongsp %></h2>
+                //     <% } %>
+                //     <div class="vertical-menu">
+                //         <% if(locals.dongSp) { %> 
+                //             <% dongSp.forEach(function(data){  %>
+                //                 <a href="/products?id=<%= data._id %>"><%= data.tenloaisp %></a>
+                //             <% }) %>
+                //         <% }else {%>
+                //             <p style="color: blue;">Số kết quả cho "<%= search %>": <%= sanPham.length %></p>
+                //         <% } %>
+                //     </div>
+                // </div>
+            </script>
+        </body>
+
+</html>
